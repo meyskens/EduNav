@@ -36,6 +36,16 @@ angular.module('edunav', ['ionic', 'ngCordova', 'edunav.controllers', 'edunav.se
     },
   })
 
+  .state('app.search', {
+    url: '/search',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/search.html',
+        controller:"SearchCtrl"
+      }
+    },
+  })
+
   .state('app.rooms', {
     url: '/rooms',
     views: {

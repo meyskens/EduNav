@@ -20,6 +20,10 @@ function backendService($http) {
         return $http.get("https://edunav.eyskens.me/rooms/" + id);
     }
 
+    this.getRoomsForTerm = function(term) {
+        return $http.get("https://edunav.eyskens.me/rooms/search", { params: {term: term} });
+    }
+
     this.getRoomsForMap = function(mapID) {
         return $http.get("https://edunav.eyskens.me/rooms/map/" + mapID);
     }

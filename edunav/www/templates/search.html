@@ -1,0 +1,16 @@
+<ion-view view-title="Search">
+  <ion-content>
+    <ion-list>
+      <div class="list list-inset">
+        <label class="item item-input">
+          <i class="icon ion-search placeholder-icon"></i>
+          <input type="text" placeholder="Search" ng-model="searchInput" ng-change="searchChange(searchInput)"></input>
+        </label>
+      </div>
+      <a ng-repeat="room in rooms" class="item item-icon-right" ng-href="#/app/rooms/{{room.mapID}}/{{room._id}}">
+        {{room.name}}
+        <i class="icon ion-chevron-right"></i>
+      </a>
+    </ion-list>
+  </ion-content>
+</ion-view>
