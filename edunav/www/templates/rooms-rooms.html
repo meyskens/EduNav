@@ -1,0 +1,10 @@
+<ion-view view-title="Rooms">
+  <ion-content>
+    <ion-list ng-hide="error">
+      <a ng-repeat="room in rooms" class="item item-icon-right" ng-href="#/app/rooms/{{mapId}}/{{room._id}}">
+        {{room.name}}
+        <i class="icon ion-chevron-right"></i>
+      </a>
+    </ion-list>
+  </ion-content>
+</ion-view>

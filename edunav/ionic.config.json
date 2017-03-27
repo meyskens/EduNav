@@ -1,0 +1,13 @@
+{
+  "name": "edunav",
+  "app_id": "me.eyskens.edunav",
+  "gulpStartupTasks": [
+    "sass",
+    "watch"
+  ],
+  "watchPatterns": [
+    "www/**/*",
+    "!www/lib/**/*",
+    "!www/**/*.map"
+  ]
+}

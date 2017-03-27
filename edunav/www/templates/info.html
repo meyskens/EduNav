@@ -1,0 +1,39 @@
+<ion-view view-title="Info">
+    <ion-content>
+        <ion-content>
+            <div class="card" ng-click="versionTap()">
+                <div class="item item-text-wrap">
+                    <h2>EduNav Version</h2>
+                    {{appVersion}}
+                </div>
+            </div>
+            <div class="card">
+                <div class="item item-text-wrap">
+                    <h2>Contributors</h2>
+                </div>
+                <div class="item item-text-wrap" ng-show="loadingContributors">
+                    <ion-spinner></ion-spinner>'
+                </div>
+                <div class="item item-avatar item-icon-right" ng-repeat="contributor in contributors" ng-hide="loadingContributors">
+                    <img ng-src="{{contributor.avatarURL}}">
+                    <h2>{{contributor.name}}</h2>
+                    <a ng-href="mailto:{{contributor.email}}" ng-if="contributor.email"><i class="icon ion-email"></i></a>
+                </div>
+            </div>
+            <div class="card">
+                <div class="item">
+                    <h2>Support</h2>
+                    <a href="sms:+32498645961" style="text-decoration: none;">
+                        <button class="button button-block button-balanced">
+                            <i class="icon ion-android-textsms"></i> SMS
+                        </button>
+                    </a>
+                    <a href="tel:+32498645961" style="text-decoration: none;">
+                        <button class="button button-block button-calm">
+                            <i class="icon ion-ios-telephone"></i> Call
+                        </button>
+                    </a>
+                </div>
+            </div>
+        </ion-content>
+</ion-view>

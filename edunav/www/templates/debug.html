@@ -1,0 +1,29 @@
+<ion-view view-title="Debug envoirement">
+  <ion-content>
+      <ion-content>
+        <div class="card">
+            <div class="item item-text-wrap">
+                <h2>Platform</h2>
+                {{currentPlatform}}
+            </div>
+        </div>
+        <div class="card">
+            <div class="item item-text-wrap">
+                <h2>Version</h2>
+                {{currentPlatformVersion}}
+            </div>
+        </div>
+        <div class="card" ng-if="deviceInformation.manufacturer">
+            <div class="item item-text-wrap">
+                <h2>Manufacturer</h2>
+                {{deviceInformation.manufacturer}}
+            </div>
+        </div>
+        <div class="card" ng-if="deviceInformation.model">
+            <div class="item item-text-wrap">
+                <h2>Model</h2>
+                {{deviceInformation.model}}
+            </div>
+        </div>
+  </ion-content>
+</ion-view>
