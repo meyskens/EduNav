@@ -1,99 +1,99 @@
-angular.module('edunav', ['ionic', 'ngCordova', 'edunav.controllers', 'edunav.services'])
+angular.module("edunav", ["ionic", "ngCordova", "edunav.controllers", "edunav.services"])
 
 .run(function($ionicPlatform) {
-  $ionicPlatform.ready(function() {
+    $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
-    if (window.cordova && window.cordova.plugins.Keyboard) {
-      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-      cordova.plugins.Keyboard.disableScroll(true);
+        if (window.cordova && window.cordova.plugins.Keyboard) {
+            cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true)
+            cordova.plugins.Keyboard.disableScroll(true)
 
-    }
-    if (window.StatusBar) {
+        }
+        if (window.StatusBar) {
       // org.apache.cordova.statusbar required
-      StatusBar.styleDefault();
-    }
-  });
+            StatusBar.styleDefault()
+        }
+    })
 })
 
 .config(function($stateProvider, $urlRouterProvider) {
-  $stateProvider
+    $stateProvider
 
-  .state('app', {
-    url: '/app',
-    abstract: true,
-    templateUrl: 'templates/menu.html',
-    controller: 'AppCtrl'
+  .state("app", {
+      url: "/app",
+      abstract: true,
+      templateUrl: "templates/menu.html",
+      controller: "AppCtrl"
   })
 
-  .state('app.scan', {
-    url: '/scan',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/scan.html',
-        controller:"ScanCtrl"
-      }
-    },
+  .state("app.scan", {
+      url: "/scan",
+      views: {
+          "menuContent": {
+              templateUrl: "templates/scan.html",
+              controller:"ScanCtrl"
+          }
+      },
   })
 
-  .state('app.search', {
-    url: '/search',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/search.html',
-        controller:"SearchCtrl"
-      }
-    },
+  .state("app.search", {
+      url: "/search",
+      views: {
+          "menuContent": {
+              templateUrl: "templates/search.html",
+              controller:"SearchCtrl"
+          }
+      },
   })
 
-  .state('app.rooms', {
-    url: '/rooms',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/rooms-maps.html',
-        controller:"RoomsMapsCtrl"
-      }
-    },
+  .state("app.rooms", {
+      url: "/rooms",
+      views: {
+          "menuContent": {
+              templateUrl: "templates/rooms-maps.html",
+              controller:"RoomsMapsCtrl"
+          }
+      },
   })
 
-  .state('app.rooms-list', {
-    url: '/rooms/:map',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/rooms-rooms.html',
-        controller:"RoomsRoomsCtrl"
-      }
-    },
+  .state("app.rooms-list", {
+      url: "/rooms/:map",
+      views: {
+          "menuContent": {
+              templateUrl: "templates/rooms-rooms.html",
+              controller:"RoomsRoomsCtrl"
+          }
+      },
   })
 
-  .state('app.rooms-map', {
-    url: '/rooms/:map/:room',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/rooms-map.html',
-        controller:"RoomsMapCtrl"
-      }
-    },
+  .state("app.rooms-map", {
+      url: "/rooms/:map/:room",
+      views: {
+          "menuContent": {
+              templateUrl: "templates/rooms-map.html",
+              controller:"RoomsMapCtrl"
+          }
+      },
   })
 
- .state('app.info', {
-    url: '/info',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/info.html',
-        controller:"InfoCtrl"
-      }
-    },
-  })
-  .state('app.debug', {
-    url: '/debug',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/debug.html',
-        controller:"DebugCtrl"
-      }
-    },
+ .state("app.info", {
+     url: "/info",
+     views: {
+         "menuContent": {
+             templateUrl: "templates/info.html",
+             controller:"InfoCtrl"
+         }
+     },
+ })
+  .state("app.debug", {
+      url: "/debug",
+      views: {
+          "menuContent": {
+              templateUrl: "templates/debug.html",
+              controller:"DebugCtrl"
+          }
+      },
   })
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/scan');
-});
+    $urlRouterProvider.otherwise("/app/scan")
+})

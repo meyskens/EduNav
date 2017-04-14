@@ -1,4 +1,4 @@
-angular.module('edunav.controllers').controller('AppCtrl', appController)
+angular.module("edunav.controllers").controller("AppCtrl", appController)
 
 appController.$inject = ["$scope", "StorageService", "$rootScope"]
 

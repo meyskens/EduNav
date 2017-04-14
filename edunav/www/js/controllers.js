@@ -1,3 +1,3 @@
-angular.module('edunav.controllers', [])
+angular.module("edunav.controllers", [])
 
 

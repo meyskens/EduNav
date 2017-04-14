@@ -1,6 +1,6 @@
-angular.module('edunav.controllers').controller('SearchCtrl', searchController)
+angular.module("edunav.controllers").controller("SearchCtrl", searchController)
 
-searchController.$inject = ["$scope", "BackendService", "$timeout"];
+searchController.$inject = ["$scope", "BackendService", "$timeout"]
 
 function searchController($scope, BackendService, $timeout) {
     $scope.rooms = []

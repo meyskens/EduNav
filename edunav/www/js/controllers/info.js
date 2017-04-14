@@ -1,6 +1,6 @@
-angular.module('edunav.controllers').controller('InfoCtrl', infoController)
+angular.module("edunav.controllers").controller("InfoCtrl", infoController)
 
-infoController.$inject = ["$scope", "$ionicPlatform", "BackendService", "StorageService", "$ionicPopup", "$rootScope"];
+infoController.$inject = ["$scope", "$ionicPlatform", "BackendService", "StorageService", "$ionicPopup", "$rootScope"]
 
 function infoController($scope, $ionicPlatform, BackendService, StorageService, $ionicPopup, $rootScope) {
     $scope.appVersion = "unknown"
@@ -16,8 +16,8 @@ function infoController($scope, $ionicPlatform, BackendService, StorageService, 
     $ionicPlatform.ready(function() {
         if (typeof cordova !== "undefined") {
             cordova.getAppVersion(function(version) {
-                $scope.appVersion = version;
-            });
+                $scope.appVersion = version
+            })
         }
     })
 
@@ -35,10 +35,10 @@ function infoController($scope, $ionicPlatform, BackendService, StorageService, 
             $ionicPopup.alert({
                 title: "Debug mode",
                 template: "Debug mode is enabled"
-            });
+            })
         }
     }
-    $scope.deviceInformation =  ionic.Platform.device();
-    $scope.currentPlatform =  ionic.Platform.platform();
-    $scope.currentPlatformVersion =  ionic.Platform.version();
+    $scope.deviceInformation =  ionic.Platform.device()
+    $scope.currentPlatform =  ionic.Platform.platform()
+    $scope.currentPlatformVersion =  ionic.Platform.version()
 }

@@ -1,13 +1,13 @@
-angular.module('edunav.controllers').controller('ScanCtrl', scanController)
+angular.module("edunav.controllers").controller("ScanCtrl", scanController)
 
-scanController.$inject = ["$scope", "$ionicPlatform","$rootScope", "$cordovaBatteryStatus"];
+scanController.$inject = ["$scope", "$ionicPlatform","$rootScope", "$cordovaBatteryStatus"]
 
 function scanController($scope, $ionicPlatform, $rootScope, $cordovaBatteryStatus) {
-    var ONE_SECOND = 1000; //TO DO: lookup ES6 compatibility of const
-    $scope.baseStations = [];
+    var ONE_SECOND = 1000 //TO DO: lookup ES6 compatibility of const
+    $scope.baseStations = []
 
-    var scanInterval = null;
-    var scanIntervalTime = 1000;
+    var scanInterval = null
+    var scanIntervalTime = 1000
 
     var scanWifi = function () {
         WifiWizard.startScan(function () { })
@@ -31,7 +31,7 @@ function scanController($scope, $ionicPlatform, $rootScope, $cordovaBatteryStatu
         if (typeof WifiWizard === "undefined") {
             return $scope.error = "Platform not compatible"
         }
-        $rootScope.$on('$cordovaBatteryStatus:status', function (result) {
+        $rootScope.$on("$cordovaBatteryStatus:status", function (result) {
             console.log(result)
             if (result.level <= 20 && !result.isPlugged) {
                 // enable low battery mode
