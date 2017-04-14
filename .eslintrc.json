@@ -1,0 +1,50 @@
+{
+    "env": {
+        "browser": true,
+        "commonjs": true,
+        "es6": true,
+        "node": false
+    },
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "sourceType": "module"
+    },
+    "rules": {
+        "no-const-assign": "warn",
+        "no-this-before-super": "warn",
+        "no-undef": "warn",
+        "no-unreachable": "warn",
+        "no-unused-vars": "warn",
+        "constructor-super": "warn",
+        "valid-typeof": "warn",
+        "semi": [
+            "error",
+            "never"
+        ],
+        "indent": [
+            2,
+            4,
+            {
+                "SwitchCase": 1
+            }
+        ],
+        "quotes": [
+            2,
+            "double",
+            "avoid-escape"
+        ],
+        "eol-last": 1,
+        "keyword-spacing": 2
+    },
+    "globals": {
+        "angular": true,
+        "ionic": true,
+        "cordova": true,
+        "StatusBar": true,
+        "WifiWizard": true,
+        "$cordovaBatteryStatus": true,
+        "_": true
+    }
+}
