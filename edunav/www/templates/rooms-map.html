@@ -3,6 +3,8 @@
     <button class="button button-clear" ng-click="toggleFavorite()"><i class="icon", ng-class="isFavorite ? 'ion-android-star' : 'ion-android-star-outline'"></i></button>
   </ion-nav-buttons>
   <ion-content>
-    <canvas id="room-map-canvas" width="100%" height="100%"></canvas>
+    <ion-scroll zooming="true" direction="xy" style="width: 100%; height: 100%">
+      <canvas id="room-map-canvas" width="100%" height="100%"></canvas>
+    </ion-scroll>
   </ion-content>
 </ion-view>
