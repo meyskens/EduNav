@@ -1,0 +1,10 @@
+<ion-view view-title="Favorites">
+    <ion-content>
+        <ion-list>
+            <a ng-repeat="favorite in favorites" class="item item-icon-right" ng-href="#/app/rooms/{{favorite.mapID}}/{{favorite._id}}">
+                {{favorite.name}}
+                <i class="icon ion-chevron-right"></i>
+            </a>
+        </ion-list>
+    </ion-content>
+</ion-view>
