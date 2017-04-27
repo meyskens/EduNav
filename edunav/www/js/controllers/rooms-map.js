@@ -8,6 +8,7 @@ roomsMapController.$inject = [
     "$ionicLoading",
     "$stateParams",
     "StorageService",
+    "CanvasService",
 ]
 
 function roomsMapController(
@@ -15,59 +16,11 @@ function roomsMapController(
     BackendService,
     $ionicLoading,
     $stateParams,
-    StorageService
+    StorageService,
+    CanvasService
 ) {
     $scope.isFavorite = false
-    var canvas = document.getElementById("room-map-canvas")
-    canvas.width = document.documentElement.clientWidth
-    canvas.height = document.documentElement.clientHeight - 50 // minus top bar + make unscrollable
-    var ctx = canvas.getContext("2d")
     var image = new Image()
-
-    // image starting points
-    var xStart
-    var yStart
-    var imageWidth
-    var imageHeight
-
-    var showOnCanvas = function() {
-        var imageAspectRatio = image.width / image.height
-        var canvasAspectRatio = canvas.width / canvas.height
-
-        imageWidth = canvas.height
-        imageHeight = canvas.width
-        xStart = 0
-        yStart = 0
-
-        if (imageAspectRatio < canvasAspectRatio) {
-            // fit on height
-            imageHeight = canvas.height
-            imageWidth = image.width * (imageHeight / image.height)
-            xStart = (canvas.width - imageWidth) / 2
-            yStart = 0
-        }
-
-        if (imageAspectRatio > canvasAspectRatio) {
-            // fit on height
-            imageWidth = canvas.width
-            imageHeight = image.height * (imageWidth / image.width)
-            xStart = 0
-            yStart = (canvas.height - imageHeight) / 2
-        }
-        ctx.drawImage(image, xStart, yStart, imageWidth, imageHeight)
-    }
-
-    var drawCircle = function(x, y) {
-        ctx.beginPath()
-        ctx.arc(
-            x * imageWidth + xStart,
-            y * imageHeight + yStart,
-            10,
-            0,
-            2 * Math.PI
-        )
-        ctx.stroke()
-    }
 
     $ionicLoading.show({
         template: "<ion-spinner></ion-spinner>",
@@ -76,13 +29,19 @@ function roomsMapController(
         BackendService.getMap($stateParams.map).then(response => {
             $scope.map = response.data
             image.src = $scope.map.imageLocation
-            image.onload = function() {
-                showOnCanvas()
-                BackendService.getRoom($stateParams.room).then(response => {
-                    drawCircle(response.data.x, response.data.y)
-                })
+            CanvasService.renderMap(
+                "room-map-canvas",
+                image
+            ).then(canvasInfo => {
                 $ionicLoading.hide()
-            }
+                BackendService.getRoom($stateParams.room).then(response => {
+                    CanvasService.drawCircle(
+                        canvasInfo,
+                        response.data.x,
+                        response.data.y
+                    )
+                })
+            })
         })
     })
 

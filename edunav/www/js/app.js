@@ -27,12 +27,12 @@ angular
                 templateUrl: "templates/menu.html",
                 controller: "AppCtrl",
             })
-            .state("app.scan", {
-                url: "/scan",
+            .state("app.location", {
+                url: "/location",
                 views: {
                     menuContent: {
-                        templateUrl: "templates/scan.html",
-                        controller: "ScanCtrl",
+                        templateUrl: "templates/location.html",
+                        controller: "LocationCtrl",
                     },
                 },
             })
@@ -100,5 +100,5 @@ angular
                 },
             })
         // if none of the above states are matched, use this as the fallback
-        $urlRouterProvider.otherwise("/app/scan")
+        $urlRouterProvider.otherwise("/app/location")
     })
