@@ -23,11 +23,18 @@ function locationController(
     $q,
     CanvasService
 ) {
+    // importing an NPM module we browserified
+    var Circle = window.lateration.Circle
+    var Vector = window.lateration.Vector
+    var laterate = window.lateration.laterate
+
     var ONE_SECOND = 1000 //TO DO: lookup ES6 compatibility of const
     $scope.baseStations = []
     var infoForBSSID = {} // caches the info
     var foundAPs = []
     var firstTime = true
+
+    var myPosition = {}
 
     var image = new Image()
 
@@ -35,6 +42,7 @@ function locationController(
     var scanIntervalTime = 1000
 
     var currentMap = ""
+    var canvasInfo = null
 
     var scanWifi = function() {
         if (firstTime) {
@@ -59,6 +67,15 @@ function locationController(
 
         data = angular.copy(data)
 
+        // The following data is dummy data used to test outside of the campus
+        /*
+        data = [
+            { SSID: "eduroam", BSSID: "b8:be:bf:ff:83:6f", level: "-66" },
+            { SSID: "eduroam", BSSID: "b8:be:bf:ef:26:40", level: "-46" },
+            { SSID: "eduroam", BSSID: "b8:be:bf:ff:80:d0", level: "-59" },
+            { SSID: "eduroam", BSSID: "b8:be:bf:ff:8a:70", level: "-70" },
+        ]*/
+
         data = data.filter(function(a) {
             return a.SSID === "eduroam" // This is why the name is EduNav
         })
@@ -74,7 +91,7 @@ function locationController(
         for (var baseStations of data) {
             promises.push(getInfoForBasestation(baseStations))
         }
-        console.log(promises)
+
         $q.all(promises).then(() => {
             firstTime = false
             $ionicLoading.hide()
@@ -114,9 +131,7 @@ function locationController(
 
         var votedMaps = {}
         for (var ap of data) {
-            if (
-                typeof votedMaps[infoForBSSID[ap.BSSID].mapID] === "undefined"
-            ) {
+            if (!votedMaps[infoForBSSID[ap.BSSID].mapID]) {
                 votedMaps[infoForBSSID[ap.BSSID].mapID] = 0
             }
             votedMaps[infoForBSSID[ap.BSSID].mapID]++
@@ -132,35 +147,61 @@ function locationController(
         }
         if (currentMap !== highestVotedMap) {
             currentMap = highestVotedMap
-            loadMap()
+            loadMap().then(() => {
+                findLocation()
+            })
+        } else {
+            findLocation()
         }
     }
 
     var loadMap = function() {
-        $ionicLoading.show({
-            template: "Loading map",
-        })
-        BackendService.getMap(currentMap).then(response => {
-            $scope.map = response.data
-            image.src = $scope.map.imageLocation
-            CanvasService.renderMap("map-canvas", image).then(canvasInfo => {
-                $ionicLoading.hide()
-                for (var ap of foundAPs) {
-                    CanvasService.drawCircle(
-                        canvasInfo,
-                        infoForBSSID[ap.BSSID].x,
-                        infoForBSSID[ap.BSSID].y
-                    )
-                }
+        return new Promise(resolve => {
+            $ionicLoading.show({
+                template: "Loading map",
+            })
+            BackendService.getMap(currentMap).then(response => {
+                $scope.map = response.data
+                image.src = $scope.map.imageLocation
+                CanvasService.renderMap("map-canvas", image).then(info => {
+                    $ionicLoading.hide()
+                    canvasInfo = info
+                    resolve()
+                })
             })
         })
+    }
+
+    var findLocation = function() {
+        var beacons = []
+        for (var ap of foundAPs) {
+            beacons.push(
+                new Circle(
+                    new Vector(
+                        infoForBSSID[ap.BSSID].x,
+                        infoForBSSID[ap.BSSID].y
+                    ),
+                    Math.abs(parseInt(ap.level) / 100)
+                )
+            )
+        }
+
+        console.log(beacons)
+        myPosition = laterate(beacons)
+        console.log(myPosition)
+
+        drawMeOnMap()
+    }
+
+    function drawMeOnMap() {
+        CanvasService.drawCircle(canvasInfo, myPosition.x, myPosition.y)
     }
 
     $ionicPlatform.ready(function() {
         if (typeof WifiWizard === "undefined") {
             return ($scope.error = "Platform not compatible")
         }
-        /*$rootScope.$on("$cordovaBatteryStatus:status", function(result) {
+        $rootScope.$on("$cordovaBatteryStatus:status", function(result) {
             console.log(result)
             if (result.level <= 20 && !result.isPlugged) {
                 // enable low battery mode
@@ -176,8 +217,8 @@ function locationController(
                     scanInterval = setInterval(scanWifi, scanIntervalTime)
                 }
             }
-        })*/
+        })
         scanWifi()
-        // scanInterval = setInterval(scanWifi, scanIntervalTime)
+        scanInterval = setInterval(scanWifi, scanIntervalTime)
     })
 }
