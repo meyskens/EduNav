@@ -8,4 +8,3 @@ function appController($scope, StorageService, $rootScope) {
         $scope.debug = true
     }
 }
-

@@ -1,12 +1,26 @@
 angular.module("edunav.controllers").controller("InfoCtrl", infoController)
 
-infoController.$inject = ["$scope", "$ionicPlatform", "BackendService", "StorageService", "$ionicPopup", "$rootScope"]
+infoController.$inject = [
+    "$scope",
+    "$ionicPlatform",
+    "BackendService",
+    "StorageService",
+    "$ionicPopup",
+    "$rootScope",
+]
 
-function infoController($scope, $ionicPlatform, BackendService, StorageService, $ionicPopup, $rootScope) {
+function infoController(
+    $scope,
+    $ionicPlatform,
+    BackendService,
+    StorageService,
+    $ionicPopup,
+    $rootScope
+) {
     $scope.appVersion = "unknown"
     $scope.contributors = []
     $scope.loadingContributors = true
-    
+
     var versionTaps = 0
 
     setInterval(function() {
@@ -34,11 +48,11 @@ function infoController($scope, $ionicPlatform, BackendService, StorageService, 
             $rootScope.enableDebug()
             $ionicPopup.alert({
                 title: "Debug mode",
-                template: "Debug mode is enabled"
+                template: "Debug mode is enabled",
             })
         }
     }
-    $scope.deviceInformation =  ionic.Platform.device()
-    $scope.currentPlatform =  ionic.Platform.platform()
-    $scope.currentPlatformVersion =  ionic.Platform.version()
+    $scope.deviceInformation = ionic.Platform.device()
+    $scope.currentPlatform = ionic.Platform.platform()
+    $scope.currentPlatformVersion = ionic.Platform.version()
 }

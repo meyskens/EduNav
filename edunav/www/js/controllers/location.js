@@ -187,13 +187,13 @@ function locationController(
         }
 
         console.log(beacons)
-        
+
         var position = laterate(beacons)
         if (JSON.stringify(position) !== JSON.stringify(myPosition)) {
             myPosition = position
             drawMeOnMap()
         }
-        console.log(myPosition)    
+        console.log(myPosition)
     }
 
     function drawMeOnMap() {
