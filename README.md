@@ -1,5 +1,5 @@
-# EduNav-scan
-App to enter data into EduNav
+# EduNav
+Indoor navigation based on the eduroam wireless network
 
 
 ---
